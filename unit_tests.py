@@ -61,6 +61,27 @@ class TestRobotSimulator(unittest.TestCase):
         self.assertTrue(room.is_wall(1, 2))
         self.assertTrue(room.is_wall(3, 1))
 
+    # checks that a single valid "UP", "DOWN", "LEFT", or "RIGHT"
+    def test_moves(self): # Test 5
+        directions = ["UP", "DOWN", "LEFT", "RIGHT"]
+        for direction in directions:
+            with self.subTest(direction=direction):
+                coverage = self.sim.coverage(
+                    self.open_3, 
+                    [direction]
+                )
+                self.assertEqual(coverage, 2 / 9)
+
+    # Checks that if the robot moves "UP", "DOWN", "LEFT", or "RIGHT" into a wall, it stays put.
+    def test_walls(self): # Test 6
+        directions = ["UP", "DOWN", "LEFT", "RIGHT"]
+        for direction in directions:
+            with self.subTest(direction=direction):
+                coverage = self.sim.coverage(
+                    self.boxed_3, 
+                    [direction]
+                )
+                self.assertEqual(coverage, 1 / 1)
 
 if __name__ == '__main__':
     unittest.main()
