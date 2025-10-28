@@ -83,5 +83,34 @@ class TestRobotSimulator(unittest.TestCase):
                 )
                 self.assertEqual(coverage, 1 / 1)
 
+    # Verifies that an empty path list
+    def test_empty_path(self): # Test 7
+        coverage = self.sim.coverage(self.open_2, [])
+        self.assertEqual(coverage, 1 / 4)
+
+    # Ensures that a path that revisits a cell counts unique cells correctly
+    def test_revisited(self): # Test 8
+        coverage = self.sim.coverage(self.open_3, ["UP", "DOWN"])
+        self.assertEqual(coverage, 2 / 9)
+
+    # Verifies that a path designed to visit every cleanable cell correctly returns 1.0.
+    def test_entire_room(self): # Test 9
+        path = ["RIGHT", "DOWN", "LEFT"]
+        coverage = self.sim.coverage(self.open_2, path)
+        self.assertEqual(coverage, 4 / 4)
+        self.assertEqual(coverage, 1.0)
+
+    # Verifies that a path that intentionally misses one cellbreturns the correct fractional coverage.
+    def test_missing_one(self): # Test 10
+        path = ["RIGHT", "DOWN"]
+        coverage = self.sim.coverage(self.open_2, path)
+        self.assertEqual(coverage, 3 / 4)
+
+    # Tests a circular pathbto ensure the final move onto a visited cell isn't counted twice.
+    def test_circle(self): # Test 11
+        path = ["UP", "RIGHT", "DOWN", "LEFT"]
+        coverage = self.sim.coverage(self.open_3, path)
+        self.assertEqual(coverage, 4 / 9)
+
 if __name__ == '__main__':
     unittest.main()
