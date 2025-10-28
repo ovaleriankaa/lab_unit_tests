@@ -40,11 +40,17 @@ class RobotSimulator:
 
         total = room.get_area()
 
+        if total == 0:
+            return 0.0
+        
         visited = [[False for _ in range(room.width)] for _ in range(room.height)]
 
         current_pos = room.robot_start.copy()
         x, y = current_pos['x'], current_pos['y']
 
+        if not room.in_bounds(x, y) or room.is_wall(x, y):
+            return 0.0
+        
         visited[y][x] = True
         cleaned = 1
 
@@ -56,6 +62,9 @@ class RobotSimulator:
         }
 
         for command in path:
+
+            if command not in moves:
+                continue
 
             delta = moves[command]
             next_x = current_pos['x'] + delta['x']

@@ -106,11 +106,33 @@ class TestRobotSimulator(unittest.TestCase):
         coverage = self.sim.coverage(self.open_2, path)
         self.assertEqual(coverage, 3 / 4)
 
-    # Tests a circular pathbto ensure the final move onto a visited cell isn't counted twice.
+    # Tests a circular path to ensure the final move onto a visited cell isn't counted twice.
     def test_circle(self): # Test 11
         path = ["UP", "RIGHT", "DOWN", "LEFT"]
         coverage = self.sim.coverage(self.open_3, path)
         self.assertEqual(coverage, 4 / 9)
+
+    # Checks the edge case where the robot's start_pos is on a wall
+    def test_start_on_a_wall(self): # Test 12
+        layout = [[1, 0], [0, 0]]
+        room = Room(layout, {'x': 0, 'y': 0})
+        coverage = self.sim.coverage(room, ["RIGHT"])
+        self.assertEqual(coverage, 0.0)
+
+    # Checks that in a 1x1 room, a long path of collision commands still correctly reports 1.0 coverage.
+    def test_long_path_1_room(self): # Test 13
+        layout = [[0]]
+        room = Room(layout, {'x': 0, 'y': 0})
+        path = ["UP", "DOWN", "LEFT", "RIGHT", "UP"]
+        coverage = self.sim.coverage(room, path)
+        self.assertEqual(coverage, 1 / 1)
+        self.assertEqual(coverage, 1.0)
+
+    # Verifies that invalid commands are ignored.
+    def test_invalid_commands(self): # Test 14
+        path = ["UP", "JUMP", "RIGHT"]
+        coverage = self.sim.coverage(self.open_3, path)
+        self.assertEqual(coverage, 3 / 9)
 
 if __name__ == '__main__':
     unittest.main()
