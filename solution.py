@@ -37,7 +37,6 @@ class Room:
 class RobotSimulator:
 
     def coverage(self, room: Room, path: Path) -> float:
-
         total = room.get_area()
 
         if total == 0:

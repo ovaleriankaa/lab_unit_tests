@@ -134,5 +134,31 @@ class TestRobotSimulator(unittest.TestCase):
         coverage = self.sim.coverage(self.open_3, path)
         self.assertEqual(coverage, 3 / 9)
 
+    # The robot's start_pos is outside the map boundaries
+    def test_starts_out_of_bounds(self): # Test 15
+        layout = [
+            [0, 0], 
+            [0, 0]]
+        room = Room(layout, {'x': -1, 'y': 5})
+        coverage = self.sim.coverage(room, ["RIGHT"])
+        self.assertEqual(coverage, 0.0)
+
+    # Checks that using float coordinates in start_pos
+    def test_start_is_float(self): # Test 16
+        layout = [
+            [0, 0], 
+            [0, 0]]
+        room = Room(layout, {'x': 1.5, 'y': 0.5}) 
+        path = ["UP"]
+        with self.assertRaises(TypeError):
+            self.sim.coverage(room, path)
+
+    # Checks that passing None
+    def test_path_is_none(self): # Test 17
+        with self.assertRaises(TypeError):
+            self.sim.coverage(self.open_2, None)
+
+   
+
 if __name__ == '__main__':
     unittest.main()
