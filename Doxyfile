@@ -1,0 +1,10 @@
+PROJECT_NAME           = "Robot Simulator Lab 2"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = .
+RECURSIVE              = YES
+FILE_PATTERNS          = *.py
+OPTIMIZE_OUTPUT_JAVA   = YES
+JAVADOC_AUTOBRIEF      = YES
+EXTRACT_ALL            = YES
+GENERATE_LATEX         = NO
+html_output            = html
