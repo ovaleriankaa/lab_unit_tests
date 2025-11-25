@@ -14,4 +14,4 @@ The final output is a single number: the coverage percentage. This is calculated
 
 ## Documentation
 Documentation for both RobotSimulator and UnitTests is generated automatically.
-View it here: [Link to GitHub Pages]
+View it here: https://ovaleriankaa.github.io/lab_unit_tests/
