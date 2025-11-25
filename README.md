@@ -11,3 +11,7 @@ A list of commands (a path), such as ["UP", "RIGHT", "DOWN", "LEFT"].
 The simulator processes this path step-by-step. It tracks all the unique floor cells the robot visits. If a command tells the robot to move into a wall or off the map, the robot stays in its current position for that turn.
 
 The final output is a single number: the coverage percentage. This is calculated by dividing the number of unique cells the robot visited by the total number of cleanable floor cells on the map.
+
+## Documentation
+Documentation for both RobotSimulator and UnitTests is generated automatically.
+View it here: [Link to GitHub Pages]
